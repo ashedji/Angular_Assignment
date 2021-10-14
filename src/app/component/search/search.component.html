@@ -1,0 +1,29 @@
+<div class="alert alert-primary">Help from Tata Sky!</div>
+
+<form [formGroup]="formGroup" novalidate class="form-inline">
+    <label class="sr-only"for="searchData">Search</label>
+     <input type="text" class="form-control mb-2 mr-sm-2" placeholder="Search" formControlName=searchData id="searchData" />
+     <button class="btn btn-primary mb-2" (click)="getSearchedData()">Search</button>
+</form>
+
+<div class="table-responsive-sm" *ngIf="isFound">
+<table class="table table-sm">
+    <thead class="thead-dark">
+    <tr>
+    <th scope="col">Title</th>
+    <th scope="col">Description</th>
+    <th scope="col">Url</th>
+</tr>
+</thead>
+<tbody>
+<tr *ngFor="let channelBroadcaster of channelBroadcasters | paginate: { itemsPerPage: 10,currentPage: p}">
+    <td scope="row">{{channelBroadcaster.title}}</td>
+    <td>{{channelBroadcaster.description}}</td>
+    <td>{{channelBroadcaster.url}}</td>
+</tr>
+</tbody>
+</table>
+<pagination-controls (pageChange)="p = $event"></pagination-controls>
+</div>
+<div class="alert alert-primary" *ngIf="!isFound && count>0 ">No Records found</div>
+
